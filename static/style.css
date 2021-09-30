@@ -8,15 +8,45 @@ html, body {
     height: 100vh
 }
 
+body{
+    background-color: #0C0113;
+}
+
+.container img{
+    padding: 10px 0;
+}
+
+nav{
+    background-color:#E6C5FC;
+}
+
+.mb-3 input, select{
+    width: 100%;
+    padding: 5px;
+    border: 2px solid white;
+    border-radius: 4px;
+    background-color: #F7ECFE;
+    margin-top: 15px;
+}
+
+.mb-3 label{
+    color: #D59EFA;
+}
+
+
+
 footer{
     padding-top: 5px;
     padding-bottom: 5px;
     display: flex;
     justify-content: center;
-    background-color: #CDDCF4;
+    background-color: #D59EFA;
+    position:absolute;
+    bottom: 0;
+    width: 100%;
 }
 
-a{
+footer > a{
     text-decoration: none;
     padding: 0 25px ;
     border-right: 1px solid black;
