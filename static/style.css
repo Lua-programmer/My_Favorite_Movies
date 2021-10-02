@@ -1,11 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@600&display=swap');
 *{
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 html, body {
     width: 100%;
     height: 100vh;
+    font-family: 'EB Garamond', serif;
 }
 
 body{
@@ -33,6 +36,8 @@ nav{
     color: #D59EFA;
 }
 
+
+
 .form-check{
     margin-left: 2.5rem;
     color: #D59EFA
@@ -48,6 +53,10 @@ button{
     font-weight: bold;
 }
 
+button:hover{
+    background-color:#E6C5FC;
+}
+
 .card > img {
     width: 100%;
     height : 500px;
@@ -59,6 +68,7 @@ button{
 }
 
 .card {
+
     border-bottom: 3px solid #BF64F7;
     align-items: center;
     background-color: #BF64F7;
