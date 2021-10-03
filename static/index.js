@@ -137,3 +137,18 @@ const putFilme = async (id) => {
 }
 
 //---------------------------------------------------[DELETE]--------------------------------------------------------------------------//
+
+const delFilme = async (id) => {
+    const request = new Request(`${urlApi}/${id}` , {
+        method: 'DELETE',
+    })
+
+    const response = await fetch(request);
+    const data = await response.json();
+
+    console.log(data.message);
+
+    lista.innerHTML = '';
+    getFilmes();
+
+}
