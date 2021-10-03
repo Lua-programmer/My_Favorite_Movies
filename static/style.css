@@ -107,7 +107,7 @@ footer {
   justify-content: center;
   background-color: #d59efa;
   position: relative;
-  bottom: 0;
+  bottom: -80px;
   width: 100%;
 }
 
