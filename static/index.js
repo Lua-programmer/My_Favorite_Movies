@@ -113,7 +113,27 @@ const submitForm = async (evt) => {
     lista.innerHTML = '';
 }
 
+const getFilmesById = async (id) => {
+    const response = await fetch(`${urlApi}/${id}`);
+    return filme = response.json();
+}
 
+const putFilme = async (id) => {
+    editavel = true;
+    idEditavel = id;
 
+    const filme = await getFilmeById(id);
 
+    let nomeNovo = document.getElementById(js-Nome);
+    let imagemNovo = document.getElementById(js-Imagem);
+    let generoNovo = document.getElementById(js-Genero);
+    let notaNovo = document.getElementById(js-Nota);
 
+    nomeNovo.value = filme.nome;
+    imagemNovo.value = filme.imagem;
+    generoNovo.value = filme.genero;
+    notaNovo.value = filme.nota;
+
+}
+
+//---------------------------------------------------[DELETE]--------------------------------------------------------------------------//
