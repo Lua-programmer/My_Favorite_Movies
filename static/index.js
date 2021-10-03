@@ -5,8 +5,11 @@ const listarFilmes = document.getElementById('lista'); //CONSTANTE RESPONSÁVEL 
 //listarFilmes é uma referência a um objeto Element, ou null se um elemento com o ID escíficado não estiver contido neste documento.
 //lista é uma string representando o ID único do elemento sendo procurado no index.html
 //
-let edicao = false;
-let idEdicao = 0
+let editavel = false;
+let idEditavel = 0
+
+//---------------------------------------------------[GET]--------------------------------------------------------------------------//
+
 
 //Uma função assincrona é uma função que espera a possibilidade do AWAIT ser usado para invocar o código assincrono.
 //FETCH é o método que ao ser invocado faz uma requisição HTTP e traz os dados da URL que foi especificado na constante urlApi. 
@@ -18,8 +21,9 @@ const getFilmes = async () => {
     //Para obter o corpo de resposta fetch, precisamos formatar essa respota para JSON com a const data recebendo await invocando o responde.json()
     console.log(data);
 
-
+    
     //RENDERIZANDO OS FILMES NA TELAS
+    //O método map() invonca a função de callback passada por argumento para cada elemento do Array e devolve um novo Array como resultado.
     data.map((filme) => {
         listarFilmes.insertAdjacentHTML('beforeend', `
         <div class="col-4">
@@ -48,3 +52,68 @@ const getFilmes = async () => {
 }
 
 getFilmes();
+
+//---------------------------------------------------[POST E PUT]--------------------------------------------------------------------------//
+
+const submitForm = async (evt) => {
+    evt.preventDefault(); //PARA CANCELAR O EVENTO(evt), SEM PARA A PROPAGAÇÃO DO MESMO
+
+    //BUSCANDO OS VAORES DOS INPUTS ATRAVÉS DO ID (document.getElementById)
+    let nome = document.getElementById('js-Nome');
+    let imagem = document.getElementById('js-Imagem');
+    let genero = document.getElementById('js-Genero');
+    let nota = document.getElementById('js-Nota');
+
+    //ADICIONANDO VALORES AOS INPUTS (.value)
+    const filme = {
+        nome: nome.value,
+        imagem: imagem.value,
+        genero: genero.value,
+        nota: nota.value,
+    }
+
+    //VALIDAÇÃO
+    if(!editavel) {
+        const request = new Request(`${urlApi}/add` , {
+            method: 'POST',
+            body: JSON.stringify(filme),
+            headers: new Headers({ 'Content-Type': 'application/json'})
+        })
+
+        const response = await fetch(request);
+        const resultado = await response.json();
+        
+
+        if(resultado) {
+            getFilmes();
+        }
+
+    } else {
+        const request = new Request(`${urlApi}/${idEditavel}` , {
+            method: 'PUT',
+            body: JSON.stringify(filme),
+            headers: new Headers({ 'Content-Type': 'application/json'})
+        })
+
+        const response = await fetch(request);
+        const resultado = await response.json();
+
+        //VALIDAÇÃO - HAVENDO RETORNO DA API OS FILMES SERÃO RENDERIZADOS NOVAMENTE
+        if(resultado) {
+            getFilmes();
+        }
+
+    }
+
+    nome.value = '';
+    imagem.value = '';
+    genero.value = '';
+    nota.value = '';
+
+    lista.innerHTML = '';
+}
+
+
+
+
+
