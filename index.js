@@ -125,7 +125,7 @@ const getFilmesById = async (id) => {
 };
 
 const putFilme = async (id) => {
-  editavel = true;
+  editavel = false;
   idEditavel = id;
 
   const filme = await getFilmeById(id);
