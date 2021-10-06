@@ -93,7 +93,7 @@ const submitForm = async (evento) => {
     const resultado = await response.json();
 
     if (resultado) {
-      getFilmes();
+      getFilmes(window.alert("Filme adicionado com sucesso!"));
     }
   } else {
     const request = new Request(`${urlApi}/${idEditavel}`, {
