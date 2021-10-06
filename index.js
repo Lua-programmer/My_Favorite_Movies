@@ -1,8 +1,8 @@
 const urlApi = "http://localhost:8080/filmes"; //CONSTANTE RESPONSÁVEL POR GUARDAR A URL DA API DO MY_FAVORITE_MOVIES
 //
 //document.getElementById(id) => Retorna a referência do elemento através do seu ID
-const listarFilmes = document.getElementById("lista"); //CONSTANTE RESPONSÁVEL POR PEGAR O ELEMENTO NO INDEX.HTML COM O ID (LISTA) PARA TRABALHAR A FORMA VISUAL DO MOSTRAR FILMES
-//listarFilmes é uma referência a um objeto Element, ou null se um elemento com o ID escíficado não estiver contido neste documento.
+const lista = document.getElementById("lista"); //CONSTANTE RESPONSÁVEL POR PEGAR O ELEMENTO NO INDEX.HTML COM O ID (LISTA) PARA TRABALHAR A FORMA VISUAL DO MOSTRAR FILMES
+//lista é uma referência a um objeto Element, ou null se um elemento com o ID escíficado não estiver contido neste documento.
 //lista é uma string representando o ID único do elemento sendo procurado no index.html
 //
 let editavel = false;
@@ -23,7 +23,7 @@ const getFilmes = async () => {
   //RENDERIZANDO OS FILMES NA TELAS
   //O método map() invonca a função de callback passada por argumento para cada elemento do Array e devolve um novo Array como resultado.
   data.map((filme) => {
-    listarFilmes.insertAdjacentHTML(
+    lista.insertAdjacentHTML(
       "beforeend",
       `
     <div class="col-4" style="margin-bottom: 50px">
@@ -47,8 +47,8 @@ const getFilmes = async () => {
                 </div>
             </div>
             <div class="btn-group" role="group" aria-label="Basic outlined example">
-                <button type="button" class="btn btn-outline-primary" onclick="putFilme(${filme.id})">Editar</button>
-                <button type="button" class="btn btn-outline-primary" onclick="delFilme(${filme.id})">Excluir</button>
+                <button class="js-btn" type="button" class="btn btn-outline-primary" onclick="putFilme(${filme.id})">Editar</button>
+                <button class="js-btn" type="button" class="btn btn-outline-primary" onclick="delFilme(${filme.id})">Excluir</button>
             </div>
         </div>
     </div>
@@ -107,6 +107,7 @@ const submitForm = async (evento) => {
 
     //VALIDAÇÃO - HAVENDO RETORNO DA API OS FILMES SERÃO RENDERIZADOS NOVAMENTE
     if (resultado) {
+      editavel = false;
       getFilmes();
     }
   }
@@ -121,19 +122,19 @@ const submitForm = async (evento) => {
 
 const getFilmesById = async (id) => {
   const response = await fetch(`${urlApi}/${id}`);
-  return (filme = response.json());
+  return filme = response.json();
 };
 
 const putFilme = async (id) => {
-  editavel = false;
+  editavel = true;
   idEditavel = id;
 
-  const filme = await getFilmeById(id);
+  const filme = await getFilmesById(id);
 
-  let nomeNovo = document.getElementById(nome);
-  let imagemNovo = document.getElementById(imagem);
-  let generoNovo = document.getElementById(genero);
-  let notaNovo = document.getElementById(nota);
+  let nomeNovo = document.getElementById("nome");
+  let imagemNovo = document.getElementById("imagem");
+  let generoNovo = document.getElementById("genero");
+  let notaNovo = document.getElementById("nota");
 
   nomeNovo.value = filme.nome;
   imagemNovo.value = filme.imagem;
@@ -156,3 +157,39 @@ const delFilme = async (id) => {
   lista.innerHTML = "";
   getFilmes();
 };
+
+//--------------------------------MODO DARK---------------------------//
+
+document.addEventListener("DOMContentLoaded", () => {
+  const body = document.querySelector("body");
+  const inputDarkMode = document.getElementById("input-dark-mode");
+
+  inputDarkMode.addEventListener("change", () => {
+    if (inputDarkMode.checked) {
+      body.setAttribute("dark", "true");
+    } else {
+      body.removeAttribute("dark");
+    }
+  });
+});
+
+//Adiocionando o local storage
+document.addEventListener("DOMContentLoaded", () => {
+  const darkModeStorage = localStorage.getItem("dark-mode");
+  const body = document.querySelector("body");
+  const inputDarkMode = document.getElementById("input-dark-mode");
+
+  if (darkModeStorage) {
+    body.setAttribute("dark", "true");
+  }
+
+  inputDarkMode.addEventListener("change", () => {
+    if (inputDarkMode.checked) {
+      body.setAttribute("dark", "true");
+      localStorage.setItem("dark-mode", true);
+    } else {
+      body.removeAttribute("dark");
+      localStorage.removeItem("dark-mode");
+    }
+  });
+});

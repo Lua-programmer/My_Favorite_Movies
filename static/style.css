@@ -5,6 +5,21 @@
   box-sizing: border-box;
 }
 
+body[dark] {
+  background-color: #0c0113;
+}
+
+input[type="checkbox"]:checked {
+  display: none;
+}
+
+.btn {
+  opacity: 0;
+}
+.left {
+  margin-left: 2%;
+}
+
 html,
 body {
   width: 100%;
@@ -23,23 +38,20 @@ body {
   margin-top: 20px;
 }
 
-body {
-  background-color: #0c0113;
-}
-
 .container img {
   padding: 10px 0;
 }
 
 nav {
   background-color: #e6c5fc;
+  margin-bottom: 15px;
 }
 
 .mb-3 input,
 select {
   width: 100%;
   padding: 5px;
-  border: 2px solid white;
+  border: 2px solid #d59efa;
   border-radius: 4px;
   background-color: #f7ecfe;
   margin-top: 15px;
@@ -54,17 +66,18 @@ select {
   color: #d59efa;
 }
 
-button {
+.js-btn, button, .button {
   margin: 10px auto;
   background-color: #f7ecfe;
   padding: 5px;
-  border: 2px solid white;
+  border: 1px solid #d59efa;
   border-radius: 4px;
   color: #ac43f1;
   font-weight: bold;
 }
 
-button:hover {
+button:hover,
+.button:hover {
   background-color: #e6c5fc;
 }
 
